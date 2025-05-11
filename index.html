@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de la Madre - Abuela</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffb6c1; /* Fondo rosa */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            animation: float-heart 15s linear infinite;
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(219, 112, 147, 0.7); /* Rosa más oscuro semi-transparente */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            margin: 20px 0;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .carousel {
+            position: relative;
+            width: 100%;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            height: 50vh;
+            max-height: 400px;
+        }
+        
+        .carousel-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: rgba(219, 112, 147, 0.2);
+            border-radius: 8px;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(219, 112, 147, 0.8);
+            padding: 15px;
+            color: white;
+            text-align: center;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(219, 112, 147, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+        
+        .carousel-control:hover {
+            background-color: rgba(219, 112, 147, 0.9);
+        }
+        
+        .carousel-control-prev {
+            left: 10px;
+        }
+        
+        .carousel-control-next {
+            right: 10px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .carousel-indicator.active {
+            background-color: white;
+        }
+        
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-top: 40px;
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .carousel {
+                height: 40vh;
+            }
+            
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <h1>¡Feliz Día de la Madre, Mamá Leo!</h1>
+        
+        <div class="message">
+            <p>Querida Mamá Leo,</p>
+            <p>En este día tan especial, quiero celebrar todo lo que significas para mí. Tu sabiduría y amor incondicional han sido un gran ejemplo en mi vida.</p>
+            <p>Gracias por todas tus enseñanzas, tus historias y por siempre estar ahí para apoyarme y quererme.</p>
+        </div>
+        
+        <div class="carousel">
+            <div class="carousel-inner" id="carousel">
+                <!-- Las fotos se cargarán desde JavaScript -->
+            </div>
+            
+            <div class="carousel-control carousel-control-prev" onclick="prevSlide()">❮</div>
+            <div class="carousel-control carousel-control-next" onclick="nextSlide()">❯</div>
+            
+            <div class="carousel-indicators" id="indicators"></div>
+        </div>
+        
+        <div class="signature">Con todo mi amor,<br>Tu nieto querido adorado el más amado Johan</div>
+    </div>
+    
+    <script>
+        // Configuración de fotos con mensajes personalizados 
+        const photos = [
+            { 
+                src: "image/actuacion.jpg",
+                caption: "Tu sonrisa y tu amor siempre han sido mi guía en la vida."
+            },
+            { 
+                src: "image/beso.jpg",
+                caption: "Un recuerdo con tu espeso."
+            },
+            { 
+                src: "image/besomamaleo.JPG",
+                caption: "Esos momentos juntos siempre quedarán grabados en mi corazón."
+            },
+            { 
+                src: "image/cementerio.JPG",
+                caption: "Tu fe y devoción son una inspiración para todos nosotros."
+            },
+            { 
+                src: "image/colegioleo.JPG",
+                caption: "Siempre pendiente de mí, cuidándome con tanto amor."
+            },
+            { 
+                src: "image/comiendo.jpg",
+                caption: "Los momentos simples contigo son los más especiales en mi vida."
+            },
+            { 
+                src: "image/cumpleañps.JPG",
+                caption: "En tus 15 añitos."
+            },
+            { 
+                src: "image/leo.jpg",
+                caption: "El amor que me das cada día hace que nuestra familia sea especial."
+            }
+        ];
+        
+        let currentSlide = 0;
+        const carousel = document.getElementById('carousel');
+        const indicators = document.getElementById('indicators');
+        
+        // Crear corazones flotantes en el fondo
+        const heartsContainer = document.getElementById('hearts-container');
+        for (let i = 0; i < 50; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            heart.style.opacity = Math.random() * 0.3;
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heartsContainer.appendChild(heart);
+        }
+        
+        // Cargar fotos en el carrusel
+        function loadPhotos() {
+            carousel.innerHTML = '';
+            indicators.innerHTML = '';
+            
+            for (let i = 0; i < photos.length; i++) {
+                // Crear elemento de carrusel
+                const item = document.createElement('div');
+                item.classList.add('carousel-item');
+                if (i === currentSlide) {
+                    item.classList.add('active');
+                }
+                
+                // Imagen
+                const img = document.createElement('img');
+                img.src = photos[i].src;
+                img.alt = `Foto familiar ${i+1}`;
+                
+                // Pie de foto
+                const caption = document.createElement('div');
+                caption.classList.add('carousel-caption');
+                caption.textContent = photos[i].caption;
+                
+                // Añadir al carrusel
+                item.appendChild(img);
+                item.appendChild(caption);
+                carousel.appendChild(item);
+                
+                // Crear indicador
+                const indicator = document.createElement('div');
+                indicator.classList.add('carousel-indicator');
+                if (i === currentSlide) {
+                    indicator.classList.add('active');
+                }
+                indicator.onclick = function() {
+                    goToSlide(i);
+                };
+                indicators.appendChild(indicator);
+            }
+        }
+        
+        // Navegar a la siguiente diapositiva
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % photos.length;
+            updateSlides();
+        }
+        
+        // Navegar a la diapositiva anterior
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + photos.length) % photos.length;
+            updateSlides();
+        }
+        
+        // Ir a una diapositiva específica
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+        }
+        
+        // Actualizar visualización de diapositivas
+        function updateSlides() {
+            const items = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-indicator');
+            
+            items.forEach((item, index) => {
+                if (index === currentSlide) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Iniciar carrusel
+        loadPhotos();
+        setInterval(nextSlide, 10000); // Cambiar cada 10 segundos
+        
+        // Detección de gestos táctiles para deslizar
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.querySelector('.carousel').addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        document.querySelector('.carousel').addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide(); // Deslizar a la izquierda
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide(); // Deslizar a la derecha
+            }
+        }
+    </script>
+</body>
+</html>
